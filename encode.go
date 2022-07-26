@@ -900,6 +900,10 @@ func (me mapEncoder) encode(e *encodeState, v reflect.Value, opts encOpts, white
 	sort.Slice(sv, func(i, j int) bool { return sv[i].s < sv[j].s })
 
 	for i, kv := range sv {
+		if _, ok := whitelist[kv.s]; !ok {
+			continue
+		}
+
 		if i > 0 {
 			e.WriteByte(',')
 		}
